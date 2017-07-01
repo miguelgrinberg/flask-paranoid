@@ -1,4 +1,5 @@
 from hashlib import sha256
+import sys
 
 from flask import session, request, make_response, url_for, current_app, \
     redirect
@@ -21,7 +22,15 @@ class Paranoid(object):
                 self.write_token_to_session(token)
             elif existing_token != token:
                 # this session is invalid, so we get rid of it
-                response = make_response(self.invalid_session_handler())
+                if callable(self.invalid_session_handler):
+                    response = make_response(self.invalid_session_handler())
+                else:
+                    if self.invalid_session_handler.startswith(
+                            ('http://', 'https://', '/')):
+                        url = self.invalid_session_handler
+                    else:
+                        url = url_for(self.invalid_session_handler)
+                    response = redirect(url)
                 self.clear_session(response)
                 return response
 
@@ -38,22 +47,17 @@ class Paranoid(object):
 
     @property
     def redirect_view(self):
-        return self.on_invalid_session
+        return self.invalid_session_handler
 
     @redirect_view.setter
     def redirect_view(self, view):
-        @self.on_invalid_session
-        def _redirect():
-            if view.startswith(('http://', 'https://', '/')):
-                url = view
-            else:
-                url = url_for(view)
-            return redirect(url)
+        self.invalid_session_handler = view
 
     def _get_remote_addr(self):
         address = request.headers.get('X-Forwarded-For', request.remote_addr)
-        if address is not None:
-            address = address.encode('utf-8').split(b',')[0].strip()
+        if address is None:  # pragma: no cover
+            address = 'x.x.x.x'
+        address = address.encode('utf-8').split(b',')[0].strip()
         return address
 
     def create_token(self):
@@ -65,8 +69,9 @@ class Paranoid(object):
         algorithms.
         """
         user_agent = request.headers.get('User-Agent')
-        if user_agent is not None:
-            user_agent = user_agent.encode('utf-8')
+        if user_agent is None:  # pragma: no cover
+            user_agent = 'no user agent'
+        user_agent = user_agent.encode('utf-8')
         base = self._get_remote_addr() + b'|' + user_agent
         h = sha256()
         h.update(base)
@@ -102,11 +107,7 @@ class Paranoid(object):
 
         # if flask-login is installed, we try to clear the
         # "remember me" cookie, just in case it is set
-        try:
-            import flask_login  # noqa: F401
-        except ImportError:
-            pass
-        else:
+        if 'flask_login' in sys.modules:
             remember_cookie = current_app.config.get('REMEMBER_COOKIE',
                                                      'remember_token')
-            response.set_cookie(remember_cookie, '', expires=0)
+            response.set_cookie(remember_cookie, '', expires=0, max_age=0)
