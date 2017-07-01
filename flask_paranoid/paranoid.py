@@ -10,7 +10,7 @@ class Paranoid(object):
         self.invalid_session_handler = self._default_invalid_session_handler
         if app:
             self.init_app(app)
-    
+
     def init_app(self, app):
         @app.before_request
         def before_request():
@@ -39,7 +39,7 @@ class Paranoid(object):
     @property
     def redirect_view(self):
         return self.on_invalid_session
-    
+
     @redirect_view.setter
     def redirect_view(self, view):
         @self.on_invalid_session
@@ -58,7 +58,7 @@ class Paranoid(object):
 
     def create_token(self):
         """Create a session protection token for this client.
-        
+
         This method generates a session protection token for the cilent, which
         consists in a hash of the user agent and the IP address. This method
         can be overriden by subclasses to implement different token generation
@@ -71,7 +71,7 @@ class Paranoid(object):
         h = sha256()
         h.update(base)
         return h.hexdigest()
-    
+
     def get_token_from_session(self):
         """Return the session protection token stored from the client session.
 
@@ -81,7 +81,7 @@ class Paranoid(object):
         can override this method and implement other storage methods.
         """
         return session.get('_paranoid_token')
-    
+
     def write_token_to_session(self, token):
         """Write a session protection token to the client session.
 
@@ -103,7 +103,7 @@ class Paranoid(object):
         # if flask-login is installed, we try to clear the
         # "remember me" cookie, just in case it is set
         try:
-            import flask_login
+            import flask_login  # noqa: F401
         except ImportError:
             pass
         else:
