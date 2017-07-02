@@ -18,18 +18,18 @@ When a client connects to the application for the first time, a token that
 represents certain characteristics of this client is generated and stored. In
 succesive requests sent by this client, this token is regenerated and compared
 against the stored one. If the tokens are different, it is assumed that the
-user session is being used from a different environment than the one in which
+client is sending requests from a different environment than the one in which
 the session was originally created, so in this case the session is destroyed
-as a preventive measure.
+and the request rejected as a preventive measure.
 
-The token that is generated from the IP address and the user agent of the
-client. This means that if a user session cookie is stolen and then used from
-a different location or from a different browser, the generated token will
-change, and that will block this "different" request.
+By default, the token is generated from the IP address and the user agent of
+the client. This means that if a user session cookie is stolen and then used
+from a different location or from a different browser, the generated token
+will change, and that will block this "different" request.
 
 The idea is based on the strong session protection feature of Flask-Login, but
-generalized so that it can also be used of the Flask-Login context. The
-token generation and storage can be customized to fit different types of
+generalized so that it can also be used outside of the Flask-Login context.
+The token generation and storage can be customized to fit different types of
 applications.
 
 Quick Start
