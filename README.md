@@ -35,5 +35,5 @@ that case the extension will clear the session and block the request.
 Resources
 ---------
 
-- [Documentation](http://pythonhosted.org/flask-paranoid)
+- [Documentation](http://pythonhosted.org/Flask-Paranoid)
 - [PyPI](https://pypi.python.org/pypi/flask-paranoid)
