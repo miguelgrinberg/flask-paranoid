@@ -1,5 +1,4 @@
 from hashlib import sha256
-import sys
 
 from flask import session, request, make_response, url_for, current_app, \
     redirect
@@ -107,7 +106,7 @@ class Paranoid(object):
 
         # if flask-login is installed, we try to clear the
         # "remember me" cookie, just in case it is set
-        if 'flask_login' in sys.modules:
+        if getattr(current_app, 'login_manager', None):
             remember_cookie = current_app.config.get('REMEMBER_COOKIE',
                                                      'remember_token')
             response.set_cookie(remember_cookie, '', expires=0, max_age=0)
