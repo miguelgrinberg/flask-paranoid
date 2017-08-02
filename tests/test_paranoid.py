@@ -1,4 +1,3 @@
-import sys
 import unittest
 
 from flask import Flask
@@ -154,7 +153,7 @@ class ParanoidTests(unittest.TestCase):
             return 'foobar'
 
         client = app.test_client(use_cookies=True)
-        sys.modules['flask_login'] = 'foo'
+        app.login_manager = 'foo'
 
         self.assertEqual(paranoid.redirect_view, 'https://foo.com/foobarbaz')
 
@@ -162,7 +161,7 @@ class ParanoidTests(unittest.TestCase):
         self.assertEqual(rv.status_code, 200)
 
         rv = client.get('/', headers={'User-Agent': 'bar'})
-        del sys.modules['flask_login']
+        delattr(app, 'login_manager')
         self.assertEqual(rv.status_code, 302)
         self.assertEqual(rv.headers['Location'], 'https://foo.com/foobarbaz')
         self.assertIn(self._delete_cookie('session'),
