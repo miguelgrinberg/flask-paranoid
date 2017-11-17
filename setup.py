@@ -9,7 +9,7 @@ from setuptools import setup
 
 setup(
     name='Flask-Paranoid',
-    version='0.1.0',
+    version='0.2.0',
     url='http://github.com/miguelgrinberg/flask-paranoid/',
     license='MIT',
     author='Miguel Grinberg',
