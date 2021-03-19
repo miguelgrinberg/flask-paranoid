@@ -3,6 +3,6 @@ Flask==0.12.2
 Flask-Login==0.4.0
 Flask-Paranoid
 itsdangerous==0.24
-Jinja2==2.9.6
+Jinja2==2.11.3
 MarkupSafe==1.0
 Werkzeug==0.12.2
