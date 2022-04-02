@@ -1,7 +1,7 @@
 flask-paranoid
 ==============
 
-[![Build Status](https://travis-ci.org/miguelgrinberg/flask-paranoid.svg?branch=master)](https://travis-ci.org/miguelgrinberg/flask-paranoid)
+[![Build status](https://github.com/miguelgrinberg/flask-paranoid/workflows/build/badge.svg)](https://github.com/miguelgrinberg/flask-paranoid/actions) [![codecov](https://codecov.io/gh/miguelgrinberg/flask-paranoid/branch/main/graph/badge.svg)](https://codecov.io/gh/miguelgrinberg/flask-paranoid)
 
 Simple user session protection.
 
