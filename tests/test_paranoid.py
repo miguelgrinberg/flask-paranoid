@@ -6,9 +6,9 @@ from flask_paranoid import Paranoid
 
 
 class ParanoidTests(unittest.TestCase):
-    def _delete_cookie(self, name):
-        return (name + '=; Expires=Thu, 01-Jan-1970 00:00:00 GMT; '
-                'Max-Age=0; Path=/')
+    def _delete_cookie(self, name, httponly=True):
+        return (name + '=; Expires=Thu, 01 Jan 1970 00:00:00 GMT; '
+                f'Max-Age=0; {"HttpOnly; " if httponly else ""}Path=/')
 
     def test_401(self):
         app = Flask(__name__)
@@ -53,7 +53,7 @@ class ParanoidTests(unittest.TestCase):
 
         rv = client.get('/', headers={'User-Agent': 'bar'})
         self.assertEqual(rv.status_code, 302)
-        self.assertEqual(rv.headers['Location'], 'http://localhost/foobarbaz')
+        self.assertTrue(rv.headers['Location'].endswith('/foobarbaz'))
         self.assertIn(self._delete_cookie('session'),
                       rv.headers.getlist('Set-Cookie'))
         self.assertNotIn(self._delete_cookie('remember_token'),
@@ -107,7 +107,7 @@ class ParanoidTests(unittest.TestCase):
 
         rv = client.get('/', headers={'User-Agent': 'bar'})
         self.assertEqual(rv.status_code, 302)
-        self.assertEqual(rv.headers['Location'], 'http://localhost/redirect')
+        self.assertTrue(rv.headers['Location'].endswith('/redirect'))
         self.assertIn(self._delete_cookie('session'),
                       rv.headers.getlist('Set-Cookie'))
         self.assertNotIn(self._delete_cookie('remember_token'),
@@ -167,5 +167,5 @@ class ParanoidTests(unittest.TestCase):
         self.assertEqual(rv.headers['Location'], 'https://foo.com/foobarbaz')
         self.assertIn(self._delete_cookie('session'),
                       rv.headers.getlist('Set-Cookie'))
-        self.assertIn(self._delete_cookie('remember_token'),
+        self.assertIn(self._delete_cookie('remember_token', httponly=False),
                       rv.headers.getlist('Set-Cookie'))
