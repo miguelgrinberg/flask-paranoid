@@ -1,5 +1,14 @@
 # flask-paranoid change log
 
+**Release 0.3.0** - 2022-04-02
+
+- Project restructure and test fixes ([commit](https://github.com/miguelgrinberg/flask-paranoid/commit/a63fd06d56867969f971f66f1958611fc916e570))
+- Refreshed requirements for the example app ([commit](https://github.com/miguelgrinberg/flask-paranoid/commit/d11124c875df3b299ff63669a3dde7f1b3d0b45b))
+- Add change log ([commit](https://github.com/miguelgrinberg/flask-paranoid/commit/d48ff73b453178ed7deec327565b79dc619d4633))
+- Update build badges ([commit](https://github.com/miguelgrinberg/flask-paranoid/commit/d984efe7ce0682da9dfea3c682670670dc59cc6e))
+- Github actions build ([commit](https://github.com/miguelgrinberg/flask-paranoid/commit/ea84d08e5a3e8f5c76eb48829314822c6c3bcbad))
+- Add LICENSE file to source distribution [#4](https://github.com/miguelgrinberg/flask-paranoid/issues/4) ([commit](https://github.com/miguelgrinberg/flask-paranoid/commit/c1c77443586b80263953fa5ed1d06dace876bce7)) (thanks **Nehal J Wani**!)
+
 **Release 0.2.0** - 2017-11-17
 
 - Update requirements.txt ([commit](https://github.com/miguelgrinberg/flask-paranoid/commit/ce48283ac4043c83df913edf24fa826945b60922))
