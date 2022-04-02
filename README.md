@@ -37,3 +37,4 @@ Resources
 
 - [Documentation](http://pythonhosted.org/Flask-Paranoid)
 - [PyPI](https://pypi.python.org/pypi/flask-paranoid)
+- [Change Log](https://github.com/miguelgrinberg/flask-paranoid/blob/main/CHANGES.md)
