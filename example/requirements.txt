@@ -5,4 +5,4 @@ Flask_Paranoid
 itsdangerous==2.0.1
 Jinja2==3.0.3
 MarkupSafe==2.0.1
-Werkzeug==2.0.2
+Werkzeug==2.2.3
