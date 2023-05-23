@@ -16,12 +16,12 @@ class Paranoid(object):
         @app.before_request
         def before_request():
             token = self.create_token()
-            existing_token = self.get_token_from_session()
-            if existing_token is None:
+            existing_tokens = self.get_tokens_from_session()
+            if existing_tokens is None:
                 # this is a new session, so we write our id in it
                 self.write_token_to_session(token)
-            elif existing_token != token:
-                # this session is invalid, so we get rid of it
+            elif token not in existing_tokens:
+                # this session may be invalid, but first is there a way we can promt the user to reauthenticate to be sure?
                 if callable(self.invalid_session_handler):
                     response = make_response(self.invalid_session_handler())
                 else:
@@ -77,7 +77,7 @@ class Paranoid(object):
         h.update(base)
         return h.hexdigest()
 
-    def get_token_from_session(self):
+    def get_tokens_from_session(self):
         """Return the session protection token stored from the client session.
 
         This method retrieves the stored session protection token, or None if
@@ -85,7 +85,7 @@ class Paranoid(object):
         default implementation finds the token in the user session. Subclasses
         can override this method and implement other storage methods.
         """
-        return session.get('_paranoid_token')
+        return session.get('_paranoid_tokens')
 
     def write_token_to_session(self, token):
         """Write a session protection token to the client session.
@@ -94,7 +94,12 @@ class Paranoid(object):
         implementation writes the token to the user session. Subclasses can
         override this method to implement other storage methods.
         """
-        session['_paranoid_token'] = token
+        if '_paranoid_tokens' not in session:
+            session['_paranoid_tokens'] = [token]
+        else:
+            tokens_list = session['_paranoid_tokens']
+            tokens_list.append(token)
+            session['_paranoid_tokens'] = tokens_list
 
     def clear_session(self, response):
         """Clear the session.
