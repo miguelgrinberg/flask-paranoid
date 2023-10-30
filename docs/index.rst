@@ -59,7 +59,10 @@ URL will be made, forcing the potential attacker to log in again.
 Configuration
 =============
 
-The only configuration is what determines the action that is taken when an
+Redirect Behavior
+------------------
+
+The first configuration is what determines the action that is taken when an
 invalid session is detected, after the session is cleared. The default is to
 return a 401 error back to the client.
 
@@ -89,6 +92,21 @@ a valid Flask response::
     @paranoid.on_invalid_session
     def invalid_session():
         return 'please login', 401
+
+Environment Variables
+---------------------
+
+``PARANOID_TOKEN_AMOUNT = "one"`` 
+
+By setting this to ``"many"`` the user can affirm multiple IP addresses (multiple tokens) that are valid. They must login with each new address. This will account for users who move to different locations.
+
+``PARANOID_IP_TYPE = "full"``
+
+By setting this to ``"network"`` the token is generated based on the network IP address rather than the full address. This will account for some occasions where a user might be automatically assigned a new address when reconnecting to a known network.
+
+You can use both of these settings for the most flexible option: ``"many"`` and ``""network"``. This means every time the user uses a new network they are forced to login but flask-paranoid will remember all of these in the session for next time. 
+
+In the same way as the default setting, the tokens will all be removed on ``session.clear()``.
 
 Using with Flask-Login
 ======================
