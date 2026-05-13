@@ -36,3 +36,8 @@ tests/temp_folder
 .mr.developer.cfg
 .project
 .pydevproject
+
+.direnv
+.envrc
+requirements*.txt
+coverage.xml
