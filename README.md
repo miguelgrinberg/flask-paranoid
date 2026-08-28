@@ -1,7 +1,7 @@
 flask-paranoid
 ==============
 
-[![Build status](https://github.com/miguelgrinberg/flask-paranoid/workflows/build/badge.svg)](https://github.com/miguelgrinberg/flask-paranoid/actions) [![codecov](https://codecov.io/gh/miguelgrinberg/flask-paranoid/branch/main/graph/badge.svg)](https://codecov.io/gh/miguelgrinberg/flask-paranoid)
+[![tests](https://code.miguelgrinberg.com/miguelgrinberg/flask-paranoid/badges/workflows/tests.yml/badge.svg)](https://code.miguelgrinberg.com/miguelgrinberg/flask-paranoid/actions)
 
 Simple user session protection.
 
@@ -35,6 +35,22 @@ that case the extension will clear the session and block the request.
 Resources
 ---------
 
-- [Documentation](http://pythonhosted.org/Flask-Paranoid)
+- [git](https://code.miguelgrinberg.com/miguelgrinberg/flask-paranoid)
+- [Change Log](https://code.miguelgrinberg.com/miguelgrinberg/flask-paranoid/src/branch/main/CHANGES.md)
+- [Documentation](https://flask-paranoid.readthedocs.io/)
 - [PyPI](https://pypi.python.org/pypi/flask-paranoid)
-- [Change Log](https://github.com/miguelgrinberg/flask-paranoid/blob/main/CHANGES.md)
+- [Contributor's guide](CONTRIBUTING.md)
+- [Security policy](SECURITY.md)
+
+Sponsor this project
+--------------------
+
+This project relies on contributions from its users. If you benefit from it please consider making a single or ongoing monetary contribution in one of the following platforms:
+
+- [Github Sponsors](https://github.com/sponsors/miguelgrinberg)
+- [Patreon](https://patreon.com/miguelgrinberg)
+- [Buy me a Coffee](https://buymeacoffee.com/miguelgrinberg)
+- [thanks.dev](https://thanks.dev/u/gh/miguelgrinberg)
+- [PayPal](https://paypal.me/miguelgrinberg)
+
+Thank you!
